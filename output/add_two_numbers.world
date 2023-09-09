@@ -1,0 +1,4 @@
+متغير القاموس = {"hello" : "hi", "how are you" : "I am great",
+			"what is your name" : "I am world lang"}
+
+بينما صحيح نفذ طباعة(القاموس/استقبل())

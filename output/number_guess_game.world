@@ -1,0 +1,32 @@
+طباعة("simple game")
+طباعة("====================")
+متغير activeplayer = 1
+متغير random_number = 4
+
+بينما صحيح نفذ
+اذا activeplayer == 1 نفذ 
+طباعة("Player1")
+طباعة("Enter a number from 1 to 10")
+متغير p1number = استقبل_رقم()
+اذا p1number == random_number نفذ
+طباعة("Ops, you lose the game, good luck next time :)")
+طباعة("Player2 wins")
+توقف
+والا
+طباعة("well done :)")
+متغير activeplayer = 2
+نهاية
+أما_اذا activeplayer == 2 نفذ
+طباعة("Player2")
+طباعة("Enter a number from 1 to 10")
+متغير p2number = استقبل_رقم()
+اذا p2number == random_number نفذ
+طباعة("Ops, you lose the game, good luck next time :)")
+طباعة("Player1 wins")
+توقف
+والا
+طباعة("well done :)")
+متغير activeplayer = 1
+نهاية
+نهاية
+نهاية

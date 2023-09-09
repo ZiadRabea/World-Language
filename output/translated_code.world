@@ -1,0 +1,32 @@
+imprimer("simple game")
+imprimer("====================")
+variable activeplayer = 1
+variable random_number = 4
+
+tant_que vrai faire
+	si activeplayer == 1 faire 
+		imprimer("Player1")
+		imprimer("Enter a number from 1 to 10")
+		variable p1number = entrer_entier()
+		si p1number == random_number faire
+			imprimer("Ops, you lose the game, good luck next time :)")
+			imprimer("Player2 wins")
+			arrêter
+			sinon
+			imprimer("well done :)")
+			variable activeplayer = 2
+		fin
+	sinon_si activeplayer == 2 faire
+		imprimer("Player2")
+		imprimer("Enter a number from 1 to 10")
+		variable p2number = entrer_entier()
+		si p2number == random_number faire
+			imprimer("Ops, you lose the game, good luck next time :)")
+			imprimer("Player1 wins")
+			arrêter
+			sinon
+			imprimer("well done :)")
+			variable activeplayer = 1
+		fin
+	fin
+fin
