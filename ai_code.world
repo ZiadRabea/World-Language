@@ -1,0 +1,5 @@
+define a variable with a random number from 1 to 10
+let activeuser be 1 
+take a number from the user
+if the number is equal to the random variable, print first user lost the game, otherwise, let active user be 2
+repeat the process and switch between users. 
