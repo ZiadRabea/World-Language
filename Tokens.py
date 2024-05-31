@@ -103,6 +103,3 @@ class Position:
 
     def copy(self):
         return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
-
-
-

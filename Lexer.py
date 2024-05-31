@@ -8,11 +8,7 @@ if getattr(sys, 'frozen', False):
     app_path = os.path.dirname(sys.executable)
 else:
     app_path = os.path.dirname(os.path.abspath(__file__))
-data = open(r"{}\Characters.txt".format(app_path), "r", encoding="UTF-8")
 DIGITS = '0123456789'
-LETTERS = data.read()
-data.close()
-LETTERS_DIGITS = LETTERS + DIGITS
 
 
 class Lexer:
@@ -40,10 +36,10 @@ class Lexer:
                 self.advance()
             elif self.current_char in DIGITS:
                 tokens.append(self.make_number())
-            elif self.current_char in LETTERS:
-                tokens.append(self.make_identifier())
-            elif self.current_char in ('"', "'"):
-                tokens.append(self.make_string())
+            elif self.current_char == '"':
+                tokens.append(self.make_string(q='"'))
+            elif self.current_char == "'":
+                tokens.append(self.make_string(q="'"))
             elif self.current_char == '+':
                 tokens.append(Token(TT_PLUS, pos_start=self.pos))
                 self.advance()
@@ -93,10 +89,7 @@ class Lexer:
                 tokens.append(Token(TT_COMMA, pos_start=self.pos))
                 self.advance()
             else:
-                pos_start = self.pos.copy()
-                char = self.current_char
-                self.advance()
-                return [], IllegalCharError(pos_start, self.pos, "'" + char + "'")
+                tokens.append(self.make_identifier())
 
         tokens.append(Token(TT_EOF, pos_start=self.pos))
         return tokens, None
@@ -118,27 +111,27 @@ class Lexer:
         else:
             return Token(TT_FLOAT, float(num_str), pos_start, self.pos)
 
-    def make_string(self):
+    def make_string(self, q):
         string = ''
         pos_start = self.pos.copy()
         escape_character = False
         self.advance()
-
+        quote_type = q
         escape_characters = {
             'n': '\n',
             't': '\t'
         }
 
-        while self.current_char != None and (self.current_char not in ('"', "'") or escape_character):
+        while self.current_char != None and (self.current_char != q or escape_character):
             if escape_character:
                 string += escape_characters.get(self.current_char, self.current_char)
+                escape_character = False
             else:
                 if self.current_char == '\\':
                     escape_character = True
                 else:
                     string += self.current_char
             self.advance()
-            escape_character = False
 
         self.advance()
         return Token(TT_STRING, string, pos_start, self.pos)
@@ -147,7 +140,7 @@ class Lexer:
         id_str = ''
         pos_start = self.pos.copy()
 
-        while self.current_char != None and self.current_char in LETTERS_DIGITS + '_':
+        while self.current_char and self.current_char not in " )(-+.,<>/^*\n%#@!=[]{}`~\t":
             id_str += self.current_char
             self.advance()
 

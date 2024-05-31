@@ -23,6 +23,13 @@ while True:
             print(error.as_string())
         elif result:
             print(u"{}".format(result))
+    elif text == "extman":
+        path = app_path.replace('\\', '/')
+        result, error = Interpreter.run('<stdin>', f"world('{path}/extman.world')")
+        if error:
+            print(error.as_string())
+        elif result:
+            print(u"{}".format(result))
     elif text == "ai":
         print("It seems like you're using the educational of World Language, please make sure to download the practical version : https://cszido.github.io/worldlang")
     else:
